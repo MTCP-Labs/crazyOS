@@ -20,6 +20,8 @@ we just named it crazyOS because it sounded like a good fit for our stupidity.
 
 You can once the barebones has been setup and the OS is bootable.
 
+----
+
 # Wanna contact us?
 
 You can message me on Discord, send a friend request to `shab.xyz` and let me know
