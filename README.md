@@ -27,6 +27,7 @@ You can once the barebones has been setup and the OS is bootable.
 You can message me on Discord, send a friend request to `shab.xyz` and let me know
 you came from the github. Good to make friends or just to ask questions.
 
-Credits to shab and ydevving 
+Credits to shab and ydevving.
+
 
 `Copyright (C) 2023 MTCP-Labs, avia.shabbyman@gmail.com`
