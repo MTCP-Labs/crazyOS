@@ -29,5 +29,4 @@ you came from the github. Good to make friends or just to ask questions.
 
 Credits to shab and ydevving.
 
-
 `Copyright (C) 2023 MTCP-Labs, avia.shabbyman@gmail.com`
