@@ -18,6 +18,17 @@
  */
 [[noreturn]] void kernelPanic(const char** reasons, int reasonCount);
 
+/**
+ * @tparam T 
+ * @param reasons 
+ */
+template<typename... T>
+[[noreturn]] void kernelPanic(T*... reasons)
+{
+    const char* list[] { reasons... };
+
+    kernelPanic(list, sizeof...(reasons));
+}
 
 
-#endif
+#endif // KERNEL_PANIC_H
