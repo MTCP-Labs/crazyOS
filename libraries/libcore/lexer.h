@@ -16,56 +16,83 @@
 #include <string_view>
 #include <vector>
 
-namespace LibCore {
-    
-    class BasicLexer {
+namespace LibCore 
+{
+    class BasicLexer 
+    {
     protected:
         int line = 1;
-        std::string_view sw;
+        std::string_view sv;
         const char* it;
 
     public:
+        
         BasicLexer() = default;
         BasicLexer(const std::string_view& v);
 
-        inline void restart()
-        {
-            it = sv.begin();
+        /// @breif: restart & end
+        inline void restart() 
+        { 
+            it = sv.begin(); 
         }
 
-        inline bool end()
-        {
-            return it >= sv.end();
+        inline bool end() 
+        { 
+            return it >= sv.end(); 
         }
 
-        bool eatWord(const char* word);
+        char consume();
 
-        template<typename C> std::string_view digestWhile(C cond) 
+        /**
+         * @param word 
+         * @return true 
+         * @return false 
+         */
+        bool consumeWord(const char* word);
+
+        /**
+         * @tparam C 
+         * @param cond 
+         * @return std::string_view 
+         */
+        template <typename C> std::string_view consumeWhile(C cond) 
         {
             if (end())
                 return nullptr;
-            
+
             auto start = it;
             size_t count = 0;
             char c;
-
-            while (!end() && cond(c == peek())) {
+            while (!end() && cond(c = peek())) 
+            {
                 count++;
+
+                if (c == '\n') {
+                    line++;
+                }
+
+                end();
             }
+
+            return sv.substr(static_cast<size_t>(start - sv.begin()), count);
         }
 
-        inline void digestWhitespace(bool includeBreaks = true) {
+        int consumeOne(char c);
+        
+        /**
+         * @param includeBreaks 
+         */
+        inline void consumeWhitespace(bool includeBreaks = true) 
+        {
             if (includeBreaks) {
-                digestWhile([](char c) -> bool { return isspace(c) });
+                consumeWhile([](char c) -> bool  { return isspace(c) || isblank(c) || c == '\t' || c == '\n' || c == '\r'; });
             } else {
-                /// FIXIME: todo
+                consumeWhile([](char c) -> bool { return isspace(c) || isblank(c) || c == '\t'; });
             }
         }
 
         char peek(long ahead = 0) const;
-
     }; // class BasicLexer
-    
 } // namespace LibCore
 
-#endif 
+#endif
